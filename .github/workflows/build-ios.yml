@@ -18,15 +18,15 @@ jobs:
             -target JarvisAI \
             -configuration Release \
             -sdk iphoneos \
-            -derivedDataPath build \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGN_IDENTITY="" \
-            DEVELOPMENT_TEAM=""
+            DEVELOPMENT_TEAM="" \
+            CONFIGURATION_BUILD_DIR="$(pwd)/build-output"
 
       - name: Package as .ipa
         run: |
-          cd ios/JarvisAI/build/Build/Products/Release-iphoneos
+          cd ios/JarvisAI/build-output
           mkdir Payload
           cp -r JarvisAI.app Payload/
           zip -r JarvisAI-unsigned.ipa Payload
@@ -35,4 +35,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: JarvisAI-unsigned-ipa
-          path: ios/JarvisAI/build/Build/Products/Release-iphoneos/JarvisAI-unsigned.ipa
+          path: ios/JarvisAI/build-output/JarvisAI-unsigned.ipa
