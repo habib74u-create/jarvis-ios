@@ -12,7 +12,7 @@ jobs:
 
       - name: Build app (unsigned)
         run: |
-          cd ios/JarvisAI
+          cd ios
           xcodebuild build \
             -project JarvisAI.xcodeproj \
             -target JarvisAI \
@@ -26,7 +26,7 @@ jobs:
 
       - name: Package as .ipa
         run: |
-          cd ios/JarvisAI/build-output
+          cd ios/build-output
           mkdir Payload
           cp -r JarvisAI.app Payload/
           zip -r JarvisAI-unsigned.ipa Payload
@@ -35,4 +35,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: JarvisAI-unsigned-ipa
-          path: ios/JarvisAI/build-output/JarvisAI-unsigned.ipa
+          path: ios/build-output/JarvisAI-unsigned.ipa
